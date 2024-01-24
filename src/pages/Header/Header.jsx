@@ -17,6 +17,7 @@ const Header = () => {
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Navigation />
           {isLoggedIn ? <UserMenu /> : <Auth />}
+          {/* <UserMenu /> */}
         </Toolbar>
       </AppBar>
       <Suspense fallback={<Loader />}>

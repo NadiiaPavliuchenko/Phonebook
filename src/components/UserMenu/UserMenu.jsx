@@ -12,6 +12,8 @@ const UserMenu = () => {
   const user = useSelector(selectUser);
   const navigate = useNavigate();
 
+  console.log();
+
   const handleLogout = () => {
     dispatch(logoutUser());
     navigate('/login');

@@ -52,19 +52,3 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
-
-export const updateContact = createAsyncThunk(
-  'contacts/updateContact',
-  async ({ id, body }, { rejectWithValue, getState }) => {
-    try {
-      const resp = await api.patch(`/contacts/${id}`, body, {
-        headers: {
-          Authorization: `Bearer ${getState().auth.token}`,
-        },
-      });
-      return resp.data;
-    } catch (e) {
-      return rejectWithValue(e.message);
-    }
-  }
-);
