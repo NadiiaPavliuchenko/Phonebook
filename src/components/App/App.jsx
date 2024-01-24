@@ -7,6 +7,7 @@ import PublicRoute from 'guards/PublicRoute';
 import PrivateRoute from 'guards/PrivateRoute';
 import { selectIsLoading } from '../../redux/root/selectors';
 import { fetchContacts } from '../../redux/contacts/operations';
+import Loader from 'components/Loader/Loader';
 
 const Header = lazy(() => import('../../pages/Header/Header'));
 const Home = lazy(() => import('../../pages/Home/Home'));
@@ -28,32 +29,26 @@ export const App = () => {
   return isLoading ? (
     <p>Loading...</p>
   ) : (
-    <Suspense fallback={null}>
+    <Suspense fallback={<Loader />}>
       <Routes>
         <Route path="/" element={<Header />}>
           <Route index element={<Home />} />
           <Route
             path="contacts"
             element={
-              <PrivateRoute>
-                <Contacts />
-              </PrivateRoute>
+              <PrivateRoute redirectTo="/login" component={<Contacts />} />
             }
           />
           <Route
             path="register"
             element={
-              <PublicRoute>
-                <Register />
-              </PublicRoute>
+              <PublicRoute redirectTo="/contacts" component={<Register />} />
             }
           />
           <Route
             path="login"
             element={
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
+              <PublicRoute redirectTo="/contacts" component={<Login />} />
             }
           />
         </Route>
