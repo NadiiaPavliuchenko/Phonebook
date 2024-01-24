@@ -21,10 +21,10 @@ const RegisterForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const { name, email, password } = e.target.elements;
+    const { username, email, password } = e.target.elements;
     dispatch(
       registerUser({
-        name: name.value,
+        name: username.value,
         email: email.value,
         password: password.value,
       })
