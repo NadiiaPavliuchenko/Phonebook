@@ -1,16 +1,32 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import { Link } from 'react-router-dom';
 
 const Auth = () => {
   return (
-    <nav>
-      <li>
-        <NavLink to="/register">Register</NavLink>
-      </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
-    </nav>
+    <Box>
+      <List
+        sx={{
+          display: 'flex',
+          '& .MuiListItem-root': {
+            color: 'black',
+            borderRadius: 1,
+            transition: 'background-color 0.5s ease',
+          },
+          '& .MuiListItem-root:hover': {
+            backgroundColor: '#c7cacb',
+          },
+        }}
+      >
+        <ListItem to="/login" component={Link}>
+          Login
+        </ListItem>
+        <ListItem to="/register" component={Link}>
+          Register
+        </ListItem>
+      </List>
+    </Box>
   );
 };
 

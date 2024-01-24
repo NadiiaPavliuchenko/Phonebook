@@ -1,11 +1,9 @@
+import { Box, Typography } from '@mui/material';
 import React from 'react';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 
-const Home = () => {
+const Error = () => {
   return (
-    <Container
-      fixed
+    <Box
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -14,10 +12,10 @@ const Home = () => {
       }}
     >
       <Typography component="h1" variant="h2">
-        Welcome to the Phonebook home page!
+        Invalid route!
       </Typography>
-    </Container>
+    </Box>
   );
 };
 
-export default Home;
+export default Error;

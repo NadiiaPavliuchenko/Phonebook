@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { selectIsLoggedIn } from '../redux/authorization/selectors';
 
 const PublicRoute = ({ children }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  return !isLoggedIn ? children : <Navigate to="/contacts" />;
+  const { state: prevLocation } = useLocation();
+  return !isLoggedIn ? children : <Navigate to={prevLocation ?? '/'} />;
 };
 
 export default PublicRoute;

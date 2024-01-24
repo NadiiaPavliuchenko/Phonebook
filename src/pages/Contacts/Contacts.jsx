@@ -1,29 +1,35 @@
 import ContactsForm from 'components/ContactsForm/ContactsForm';
 import ContactsList from 'components/ContactsList/ContactsList';
 import Filter from 'components/Filter/Filter';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from '../../redux/contacts/operations';
+import { useSelector } from 'react-redux';
 import { selectError, selectIsLoading } from '../../redux/root/selectors';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Loader from 'components/Loader/Loader';
 
 const Contacts = () => {
-  const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   return (
-    <>
-      <h1>Phonebook</h1>
+    <Box
+      sx={{
+        marginTop: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <Typography component="h2" variant="h4">
+        Phonebook
+      </Typography>
       <ContactsForm />
-      <h1>Contacts</h1>
+      <Typography component="h2" variant="h4">
+        Contacts
+      </Typography>
       <Filter />
-      {isLoading && !error && <p>Loading...</p>}
+      {isLoading && !error && <Loader />}
       <ContactsList />
-    </>
+    </Box>
   );
 };
 

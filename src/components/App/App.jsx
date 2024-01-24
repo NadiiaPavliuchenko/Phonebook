@@ -6,12 +6,14 @@ import { selectUser } from '../../redux/authorization/selectors';
 import PublicRoute from 'guards/PublicRoute';
 import PrivateRoute from 'guards/PrivateRoute';
 import { selectIsLoading } from '../../redux/root/selectors';
+import { fetchContacts } from '../../redux/contacts/operations';
 
 const Header = lazy(() => import('../../pages/Header/Header'));
 const Home = lazy(() => import('../../pages/Home/Home'));
 const Contacts = lazy(() => import('../../pages/Contacts/Contacts'));
 const Register = lazy(() => import('../../pages/Register/Register'));
 const Login = lazy(() => import('../../pages/Login/Login'));
+const Error = lazy(() => import('../../pages/Error/Error'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +22,7 @@ export const App = () => {
 
   useEffect(() => {
     !user && dispatch(getCurrentUser());
+    user && dispatch(fetchContacts());
   }, [dispatch, user]);
 
   return isLoading ? (
@@ -36,7 +39,7 @@ export const App = () => {
                 <Contacts />
               </PrivateRoute>
             }
-          ></Route>
+          />
           <Route
             path="register"
             element={
@@ -53,8 +56,8 @@ export const App = () => {
               </PublicRoute>
             }
           />
-          <Route path="*" element={<h1>404</h1>} />
         </Route>
+        <Route path="*" element={<Error />} />
       </Routes>
     </Suspense>
   );
