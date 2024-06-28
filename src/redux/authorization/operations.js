@@ -53,11 +53,12 @@ export const loginUser = createAsyncThunk(
       const resp = await api.post('/users/login', body);
       return resp.data;
     } catch (e) {
-      if (e.response && e.response.status === 401) {
-        alert('Your account is not verified');
-        return thunkAPI.rejectWithValue('Your account is not verified');
-      } else {
+      if (e.response) {
+        alert(e.response.data.message);
         return thunkAPI.rejectWithValue(e.response.data.message);
+      } else {
+        alert('An unexpected error occurred');
+        return thunkAPI.rejectWithValue('An unexpected error occurred');
       }
     }
   }
