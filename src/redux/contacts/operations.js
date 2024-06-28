@@ -19,11 +19,11 @@ export const fetchContacts = createAsyncThunk(
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async ({ name, number }, { rejectWithValue, getState }) => {
+  async ({ name, phone, email }, { rejectWithValue, getState }) => {
     try {
       const resp = await api.post(
         '/contacts',
-        { name, number },
+        { name, phone, email },
         {
           headers: {
             Authorization: `Bearer ${getState().auth.token}`,
@@ -37,11 +37,43 @@ export const addContact = createAsyncThunk(
   }
 );
 
+export const updateContact = createAsyncThunk(
+  'contacts/updateContact',
+  async ({ id, body }, { rejectWithValue, getState }) => {
+    try {
+      const resp = await api.put(`/contacts/${id}`, body, {
+        headers: {
+          Authorization: `Bearer ${getState().auth.token}`,
+        },
+      });
+      return resp.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
 export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async (id, { rejectWithValue, getState }) => {
     try {
       const resp = await api.delete(`/contacts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getState().auth.token}`,
+        },
+      });
+      return resp.data;
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
+  }
+);
+
+export const updateStatusContact = createAsyncThunk(
+  'contacts/updateStatusContact',
+  async ({ id, body }, { rejectWithValue, getState }) => {
+    try {
+      const resp = await api.patch(`/contacts/${id}/favorite`, body, {
         headers: {
           Authorization: `Bearer ${getState().auth.token}`,
         },

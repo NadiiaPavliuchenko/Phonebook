@@ -8,6 +8,7 @@ import PrivateRoute from 'guards/PrivateRoute';
 import { selectIsLoading } from '../../redux/root/selectors';
 import { fetchContacts } from '../../redux/contacts/operations';
 import Loader from 'components/Loader/Loader';
+import VerifyAccount from 'components/VerifyAccount/VerifyAccount';
 
 const Header = lazy(() => import('../../pages/Header/Header'));
 const Home = lazy(() => import('../../pages/Home/Home'));
@@ -52,6 +53,7 @@ export const App = () => {
             }
           />
         </Route>
+        <Route path="/verify/:verificationToken" element={<VerifyAccount />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </Suspense>

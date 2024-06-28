@@ -13,7 +13,8 @@ const ContactsForm = () => {
     e.preventDefault();
 
     const name = e.target.elements.name.value;
-    const number = e.target.elements.number.value;
+    const phone = e.target.elements.phone.value;
+    const email = e.target.elements.email.value;
 
     const isExist = contacts.some(contact => contact.name === name);
 
@@ -22,7 +23,7 @@ const ContactsForm = () => {
       return;
     }
 
-    dispatch(addContact({ name, number }));
+    dispatch(addContact({ name, phone, email }));
 
     e.target.reset();
   };
@@ -55,12 +56,22 @@ const ContactsForm = () => {
           margin="normal"
           required
           fullWidth
-          id="number"
+          id="phone"
           type="tel"
-          label="Number"
-          name="number"
-          autoComplete="number"
+          label="Phone number"
+          name="phone"
+          autoComplete="phone"
           pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoComplete="email"
+          pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         />
         <Button
           type="submit"

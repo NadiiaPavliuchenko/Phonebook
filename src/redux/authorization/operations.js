@@ -9,7 +9,36 @@ export const registerUser = createAsyncThunk(
   'auth/register',
   async (body, thunkAPI) => {
     try {
-      const resp = await api.post('/users/signup', body);
+      const resp = await api.post('/users/register', body);
+      return resp.data;
+    } catch (e) {
+      alert(e.response.data.message);
+      throw e;
+    }
+  }
+);
+
+export const resendLetter = createAsyncThunk(
+  'auth/resendLetter',
+  async (body, thunkAPI) => {
+    try {
+      const resp = await api.post('/users/verify', body);
+      return resp.data;
+    } catch (e) {
+      alert(e.response.data.message);
+      thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const verifyUser = createAsyncThunk(
+  'auth/verify',
+  async (verificationToken, thunkAPI) => {
+    try {
+      const resp = await api.get(`/users/verify/${verificationToken}`);
+      if (!resp.ok) {
+        throw new Error('Verification failed');
+      }
       return resp.data;
     } catch (e) {
       thunkAPI.rejectWithValue(e.message);
@@ -24,7 +53,12 @@ export const loginUser = createAsyncThunk(
       const resp = await api.post('/users/login', body);
       return resp.data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e.message);
+      if (e.response && e.response.status === 401) {
+        alert('Your account is not verified');
+        return thunkAPI.rejectWithValue('Your account is not verified');
+      } else {
+        return thunkAPI.rejectWithValue(e.response.data.message);
+      }
     }
   }
 );
