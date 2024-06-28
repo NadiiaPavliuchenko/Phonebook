@@ -27,10 +27,10 @@ retrieval.
 
 1. Clone the repository:
    `git clone https://github.com/NadiiaPavliuchenko/Phonebook.git`
-2. Navigate to the project directory: `cd Phonebook` 3.Install dependencies:
-   `npm install`
-3. Run the app: `npm start`
-4. Open `http://localhost:3000` in your browser.
+2. Navigate to the project directory: `cd Phonebook`
+3. Install dependencies: `npm install`
+4. Run the app: `npm start`
+5. Open `http://localhost:3000` in your browser.
 
 # API
 
